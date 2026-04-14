@@ -13,13 +13,12 @@ func hello(w http.ResponseWriter, r *http.Request) {
 
 func postHandler(w http.ResponseWriter, r *http.Request) {
 	var data map[string]string
-
 	json.NewDecoder(r.Body).Decode(&data)
 
 	name := data["name"]
 
 	json.NewEncoder(w).Encode(map[string]string{
-		"reply": "สวัสดี " + name,
+		"reply": "Hello " + name,
 	})
 }
 
