@@ -23,10 +23,27 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+func setLang(w http.ResponseWriter, r *http.Request) {
+	var data map[string]string
+
+	json.NewDecoder(r.Body).Decode(&data)
+
+	lang := data["lang"]
+
+	http.SetCookie(w, &http.Cookie{
+		Name:  "lang",
+		Value: lang,
+		Path:  "/",
+	})
+
+	w.Write([]byte(`{"status":"ok"}`))
+}
+
 func main() {
 	// API
-	//http.HandleFunc("/api/hello", hello)
+	http.HandleFunc("/api/hello", hello)
 	http.HandleFunc("/api/post", postHandler)
+	http.HandleFunc("/api/set-lang", setLang)
 	// serve frontend
 	http.Handle("/", http.FileServer(http.Dir("./static")))
 	http.ListenAndServe(":8080", nil)
