@@ -4,7 +4,7 @@
   "welcome": "สวัสดี %s",
   "bye": "ลาก่อน",
   "title": "สวัสดี",
-  "button": "กดฉัน",
+  "Click me": "กดฉัน",
   "send": "ส่ง",
   "name_placeholder": "พิมพ์ชื่อ",
     "push": "กด"

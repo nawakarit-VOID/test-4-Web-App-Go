@@ -1,4 +1,3 @@
-let currentLang = "th"
 let translations = {}
 
 function loadLang(lang) {
@@ -7,14 +6,9 @@ function loadLang(lang) {
 }
 
 function applyLang() {
-  console.log("translations:", translations)
-
   document.querySelectorAll("[data-key]").forEach(el => {
     const key = el.dataset.key
     const text = translations[key]
-
-    console.log("key:", key)
-    console.log("text:", text)
 
     if (el.tagName === "INPUT") {
       el.placeholder = text
@@ -25,18 +19,37 @@ function applyLang() {
 }
 
 function setLang(lang) {
-  currentLang = lang
+  fetch("/api/set-lang", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ lang })
+  })
 
   loadLang(lang).then(data => {
     translations = data
-
-    // เก็บไว้
     localStorage.setItem("lang", lang)
-
     applyLang()
   })
 }
 
-// โหลดครั้งแรก
+function sendData() {
+  const name = document.getElementById("name").value
+
+  fetch("/api/post", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ name })
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("result").innerText = data.reply
+  })
+}
+
+// โหลดตอนเปิด
 const savedLang = localStorage.getItem("lang") || "th"
 setLang(savedLang)

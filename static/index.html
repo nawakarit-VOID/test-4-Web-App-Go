@@ -2,58 +2,34 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>My First Web App</title>
+  <title>My App</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
 
-  <h1 id="text">กดปุ่มด้านล่าง</h1>
-  <button onclick="callAPI()">กดฉัน</button>
-  <button onclick="callAPI()"data-key="push"></button>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
 
-<input id="name" data-key="name_placeholder" data-type="placeholder">
+  <div class="bg-white p-8 rounded-2xl shadow-lg w-80">
 
-<button onclick="sendData()" data-key="send"></button>
+    <h1 data-key="title" class="text-2xl font-bold text-center mb-4"></h1>
 
-<h1 id="result">ผลลัพธ์จะอยู่ตรงนี้</h1>
+    <input id="name" data-key="name_placeholder"
+      class="border w-full p-2 rounded mb-3">
 
-<h1 data-key="title"></h1>
+    <button onclick="sendData()" data-key="send"
+      class="bg-blue-500 hover:bg-blue-600 text-white w-full py-2 rounded mb-3">
+    </button>
 
-<button data-key="button"></button>
+    <h2 id="result" class="text-center text-green-600 font-semibold"></h2>
 
-<hr>
+    <div class="flex justify-center gap-2 mt-4">
+      <button onclick="setLang('th')" class="text-sm">🇹🇭</button>
+      <button onclick="setLang('en')" class="text-sm">🇺🇸</button>
+    </div>
 
-<button onclick="setLang('th')">ไทย</button>
-<button onclick="setLang('en')">English</button>
+  </div>
 
-<script src="lang.js"></script>
-
-
-  <script>
-    function callAPI() {
-      fetch("/api/hello")
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("text").innerText = data.message
-        })
-    }
-
-function sendData() {
-  const name = document.getElementById("name").value
-
-  fetch("/api/post", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ name: name })
-  })
-  .then(res => res.json())
-  .then(data => {
-    // 👇 เอามาแสดงตรงนี้
-    document.getElementById("result").innerText = data.reply
-  })
-}
-  </script>
-
+  <script src="app.js"></script>
 </body>
 </html>
