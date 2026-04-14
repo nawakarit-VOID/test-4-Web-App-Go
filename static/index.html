@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>My First Web App</title>
+</head>
+<body>
+
+  <h1 id="text">กดปุ่มด้านล่าง</h1>
+  <button onclick="callAPI()">กดฉัน</button>
+
+  <script>
+    function callAPI() {
+      fetch("/api/hello")
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("text").innerText = data.message
+        })
+    }
+  </script>
+
+</body>
+</html>
